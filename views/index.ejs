@@ -1,4 +1,25 @@
 
 <%- include('include/_header') %>
-<h1>Monika</h1>
+<main>
+    <a href="/add-user">
+        New User
+    </a>
+    <form action="/" method="post">
+        <table>
+            <thead>
+                <tr>
+                    <th>ID</th>
+                    <th>Name</th>
+                    <th>Email</th>
+                    <th>Gender</th>
+                    <th>Status</th>
+                    <th>Action</th>
+                </tr>
+            </thead>
+            <tbody>
+                <%- include('include/_show') %>
+            </tbody>
+        </table>
+    </form>
+</main>
 <%- include('include/_footer') %>
