@@ -21,14 +21,39 @@ exports.create = (req, res) => {
 }
 
 exports.find = (req, res) => {
-
+    userdb.find().then(user => {
+        res.send(user)
+    }).catch(err => {
+        res.status(500).send({ message: err.message })
+    })
 }
 
 exports.update = (req, res) => {
+    if (!req.body) {
+        res.status(404).send({ message: 'Content can not  be empty' })
+    }
+
+    const id = req.params.id
+    userdb.findByIdAndUpdate(id, req.body, { new: true }).then(data => {
+        if (!data) {
+            return res.status(404).send({ message: 'User not found with id ' + req.params.id })
+        }
+        res.send(data)
+    }).catch(err => {
+        res.status(500).send({ message: err.message })
+    })
 
 }
 
 exports.delete = (req, res) => {
-
+    const id = req.params.id
+    userdb.findByIdAndDelete(id).then(data => {
+        if (!data) {
+            return res.status(404).send({ message: 'User cannot delete with id ' + req.params.id })
+        }
+        res.send("Deleted")
+    }).catch(err => {
+        res.status(500).send({ message: err.message })
+    })
 }
 
