@@ -14,7 +14,7 @@ const PORT = process.env.PORT || 5000
 app.use(morgan('dev'))
 connectDB();
 
-//app.use(express.json());
+app.use(express.json());
 
 //parse request to body parser
 app.use(bodyparser.urlencoded({ extended: true }))

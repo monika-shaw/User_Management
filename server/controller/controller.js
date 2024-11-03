@@ -21,11 +21,22 @@ exports.create = (req, res) => {
 }
 
 exports.find = (req, res) => {
-    userdb.find().then(user => {
-        res.send(user)
-    }).catch(err => {
-        res.status(500).send({ message: err.message })
-    })
+    if (req.query.id) {
+        const id = req.query.id
+        userdb.findById(id).then(data => {
+            if (!data) return res.status(404).send({ message: 'User not found with id ' + id })
+            res.send(data)
+        }).catch(err => {
+            res.status(500).send({ message: err.message })
+        })
+    } else {
+        userdb.find().then(user => {
+            res.send(user)
+        }).catch(err => {
+            res.status(500).send({ message: err.message })
+        })
+    }
+
 }
 
 exports.update = (req, res) => {
